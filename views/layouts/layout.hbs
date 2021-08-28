@@ -10,15 +10,15 @@
     <nav>
         <ul>
           {{!-- For sign up --}}
-          <li><a href="#">Sign Up</a></li> 
+          <li><a href="/registration">Sign Up</a></li> 
           {{!-- For log in --}}
-          <li><a href="#">Log In</a></li>
+          <li><a href="/login">Log In</a></li>
         </ul>
         <ul>
             {{#if logged}}
             <a href="/" style="text-decoration:none">Home</a>
             {{else}}
-            <a href="/About" style="text-decoration:none">About Us</a>
+            <a href="/about" style="text-decoration:none">About Us</a>
             {{/if}}
         </ul>
     </nav>
