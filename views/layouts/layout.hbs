@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{!-- Put all CSS links here --}}
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    {{!-- Put all JS scripts --}}
+  </head>
+  <body>
+    <nav>
+        <ul>
+          {{!-- For sign up --}}
+          <li><a href="#">Sign Up</a></li> 
+          {{!-- For log in --}}
+          <li><a href="#">Log In</a></li>
+        </ul>
+        <ul>
+            {{#if logged}}
+            <a href="/" style="text-decoration:none">Home</a>
+            {{else}}
+            <a href="/About" style="text-decoration:none">About Us</a>
+            {{/if}}
+        </ul>
+    </nav>
+
+    {{{body}}}
+    
+  </body>
+</html>

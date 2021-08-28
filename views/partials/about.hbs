@@ -1,0 +1,10 @@
+<div class="profile">
+    {{#each person}}
+    <a href="" style="text-decoration:none">
+        <img src="/images/{{this.image}}" alt="imageNoWork" style="height:100px">
+        <p>Name: {{this.name}}</p>
+        <p>GitHub Name: {{this.github}}</p>
+        <p>About Me: {{this.information}}</p>
+    </a>
+    {{/each}}
+</div>
