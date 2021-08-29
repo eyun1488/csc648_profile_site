@@ -11,8 +11,8 @@ const pool = mysql.createPool({
     debug: false // error from database to see login and password error
 });
 
-// module.exports = pool;
+// don't use the line below as it will not work
+// module.exports = pool; 
 // this will convert our api to promises based connection objects or non-promised space connection objects
 const promisePool = pool.promise();
 module.exports = promisePool;
-

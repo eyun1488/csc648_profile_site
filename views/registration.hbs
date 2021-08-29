@@ -1,4 +1,6 @@
 <form action="/users/register" method="POST" enctype="application/x-www-form-urlencoded">
+    {{!-- must have name tags within input such that the back end knows whos what in the req.params --}}
+
     <label for="first_name">First Name</label>
     <input type="text" class="first_name" id="first_name" name="first_name" placeholder="Enter first name" minlength="2" required>
     
@@ -15,10 +17,10 @@
     <input type="text" class="username" id="username" name="username" placeholder="Enter username" required>
 
     <label for="password">Password</label>
-    <input type="text" class="password" id="password" name="password" placeholder="Enter password" required>
+    <input type="password" class="password" id="password" name="password" placeholder="Enter password" required>
     
     <label for="confirm_password">Confirm Password</label>
-    <input type="text" class="confirm_password" id="confirm_password" name="confirm_password" placeholder="Enter confirm password" required>
+    <input type="password" class="confirm_password" id="confirm_password" name="confirm_password" placeholder="Enter confirm password" required>
 
-    <input type="submit" class="submit_button"  id="registration_submit" value="login" required>
+    <input type="submit" class="submit_button"  id="registration_submit" value="Submit" required>
 </form>

@@ -1,4 +1,4 @@
-<div class="profile">
+{{!-- <div class="profile">
     {{#each person}}
     <a href="/about/{{this.first_name}}" style="text-decoration:none">
         <img src="/images/{{this.image}}" alt="imageNoWork" style="height:100px">
@@ -6,5 +6,18 @@
         <p>GitHub Name: {{this.github}}</p>
         <p>About Me: {{this.information}}</p>
     </a>
+    {{/each}}
+</div> --}}
+
+<div class="profile">
+    {{#each person}}
+    <div class="person_card">
+        <a href="/about/{{this.first_name}}" style="text-decoration:none">
+            <img src="/images/{{this.image}}" alt="imageNoWork" style="height:100px" class="center">
+            <p id='name'>{{this.first_name}} {{this.last_name}}</p>
+            <p>GitHub Name: {{this.github}}</p>
+            <p>About Me: {{this.information}}</p>
+        </a>
+    </div>
     {{/each}}
 </div>
