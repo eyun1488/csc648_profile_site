@@ -52,18 +52,20 @@ router.post('/register', [body("email").isEmail()], (req, res, next) => {
         );
       } else {
         successPrint("Registration Success: User was created!");
-        req.flash('success', 'User account has been made!');
+        // TODO get flash to work 
+        // req.flash('success', 'User account has been made!');
         res.redirect("/login");
       }
     })
     .catch((err) => {
+      // catch still runs after adding into DB
       errorPrint("User couldn't be made", err);
       if (err instanceof UserError) {
         // print to console
         errorPrint(err.getMessage());
         // flash on browser
         req.flash('error', err.getMessage());
-        res.status(err.getStatus());
+        // res.status(err.getStatus());
         res.redirect(err.getRedirectURL());
       } else {
         next(err);
