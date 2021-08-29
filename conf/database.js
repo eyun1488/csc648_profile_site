@@ -8,12 +8,10 @@ const pool = mysql.createPool({
     password: "password",
     database: "csc648db",
     connectionLimit: 50,
-    // waitForConnection: true,
     debug: false // error from database to see login and password error
 });
 
 // module.exports = pool;
-
 // this will convert our api to promises based connection objects or non-promised space connection objects
 const promisePool = pool.promise();
 module.exports = promisePool;
