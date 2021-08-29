@@ -64,10 +64,11 @@ router.get('/', function(req, res, next) {
 
 // route to page based on client choice
 router.get('/:person', function(req, res, next) {
+    // :person is the first name and is store into first_name // look at the href in about.hbs
     const first_name = req.params.person;
-    console.log(first_name);
+    // then we map through the options 
     if(first_name in options) 
-        return res.render('about_me', {title: person[options[first_name]].first_name, person: person[options[first_name]]});
+        return res.render('about_me', {title: first_name, person: person[options[first_name]]});
     return res.redirect("/about")
 });
 
