@@ -10,16 +10,14 @@
     <nav>
         <ul>
           {{!-- For sign up --}}
-          <li><a href="/registration">Sign Up</a></li> 
+          <li><a href="/registration" style="text-decoration:none">Sign Up</a></li>
           {{!-- For log in --}}
-          <li><a href="/login">Log In</a></li>
-        </ul>
-        <ul>
-            {{#if logged}}
-            <a href="/" style="text-decoration:none">Home</a>
-            {{else}}
-            <a href="/about" style="text-decoration:none">About Us</a>
-            {{/if}}
+          <li><a href="/login" style="text-decoration:none">Log In</a></li>
+          <li><a href="/" style="text-decoration:none">Home</a></li>
+          {{#if logged}}
+          {{else}}
+          <li><a href="/about" style="text-decoration:none">About Us</a></li>
+          {{/if}}
         </ul>
     </nav>
 
