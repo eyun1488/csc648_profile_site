@@ -13,6 +13,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var aboutRouter = require('./routes/about');
 
+var requestPrint = require('./helpers/debug/debugprinters').requestPrint;
+
+
 var app = express();
 
 app.engine(
@@ -30,6 +33,8 @@ app.engine(
   })
 );
 
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -39,6 +44,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // path to static content
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// used for helper functions
+app.use((req, res, next) => {
+  requestPrint(req.url);
+  next();
+});
 
 // renders index.hbs
 app.use('/', indexRouter);
