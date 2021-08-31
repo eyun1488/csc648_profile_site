@@ -1,3 +1,27 @@
+{{!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+  </head>
+  <body>
+    <nav>
+        <ul>
+          <li><a href="/registration" style="text-decoration:none">Sign Up</a></li>
+          <li><a href="/login" style="text-decoration:none">Log In</a></li>
+          <li><a href="/" style="text-decoration:none">Home</a></li>
+          <li><a href="/about" style="text-decoration:none">About Us</a></li>
+          {{#if logged}}
+          {{else}}
+          {{/if}}
+        </ul>
+    </nav>
+
+    {{{body}}}
+    
+  </body>
+</html> --}}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,7 +33,7 @@
     {{!-- Put all JS scripts --}}
   </head>
 
-<div class='logo'>
+  <div class='logo'>
     <img src="/images/roomM8_white.png" width="100rem"> 
   </div>
 
@@ -21,9 +45,9 @@
           <li><a href="/registration" style="text-decoration:none">Sign Up</a></li>
           {{!-- For log in --}}
           <li><a href="/login" style="text-decoration:none">Log In</a></li>
+          <li><a href="/about" style="text-decoration:none">About Us</a></li>
           {{#if logged}}
           {{else}}
-          <li><a href="/about" style="text-decoration:none">About Us</a></li>
           {{/if}}
         </ul>
     </nav>

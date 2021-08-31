@@ -57,7 +57,6 @@ const person = [
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    // TODO: Replace static array with MySql query.
     res.locals.logged = true;
     res.render('about_us', { title: "About Page", person }); // can only pass an array
 });
