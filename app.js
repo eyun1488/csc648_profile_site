@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
 var sessions = require('express-session');
-var flash = require('express-flash');
 var mysqlSession = require('express-mysql-session')(sessions);
+var flash = require('express-flash');
 var multer = require('multer');
 
 var indexRouter = require('./routes/index');
@@ -14,7 +14,6 @@ var usersRouter = require('./routes/users');
 var aboutRouter = require('./routes/about');
 
 var requestPrint = require('./helpers/debug/debugprinters').requestPrint;
-
 
 var app = express();
 
@@ -33,7 +32,27 @@ app.engine(
   })
 );
 
+// node module express-mysql-session
+// https://www.npmjs.com/package/express-mysql-session
+// session store will create a connection pool which will handle the connection
+// to the database. With the default options, a session table will be automatically generated 
+// for us. 
+var mysqlSessionStore = new mysqlSession(
+  {
+    // as we're going to use default options
+  },
+  require('./conf/database')  
+);
 
+app.use(sessions({
+  // key will give a default value of connect.sid but we want to a little more control thus 
+  key: "csid",
+  secret: "shhh it's a secret.",
+  store: mysqlSessionStore,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,10 +66,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // used for helper functions
+// these are not self-terminating middlewares thus you must call next()
 app.use((req, res, next) => {
   requestPrint(req.url);
   next();
 });
+
+app.use((req, res, next) => {
+  if(req.session.username){
+    res.locals.logged = true;
+  }
+  next();
+})
+
 
 // renders index.hbs
 app.use('/', indexRouter);

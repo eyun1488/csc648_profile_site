@@ -7,6 +7,7 @@ const { successPrint, errorPrint } = require('../helpers/debug/debugprinters');
 var bcrypt = require('bcrypt');
 var flash = require('express-flash');
 var { body, validationResult } = require('express-validator');
+const e = require('express');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -19,8 +20,7 @@ router.post('/register', [body("email").isEmail()], async (req, res, next) => {
     res.redirect("/");
   } else {
     const { first_name, last_name, address, email, username, password, confirm_password } = req.body;
-
-    // 
+    
     try{
       if(await User.usernameExists(username)){
         throw new UserError(
@@ -58,7 +58,7 @@ router.post('/register', [body("email").isEmail()], async (req, res, next) => {
       if (err instanceof UserError) {
         errorPrint(err.getMessage());
         // flash on browser | will not work without session
-        // req.flash('error', err.getMessage());
+        req.flash('error', err.getMessage());
         res.status(err.getStatus());
         res.redirect(err.getRedirectURL());
       } else {
@@ -120,26 +120,62 @@ router.post('/register', [body("email").isEmail()], async (req, res, next) => {
   }
 });
 
-// TODO start this.
 router.post('/login', async (req, res, next) => {
-  const { username, password } = req.body;
-  // User.authenticate(username, password);
-  
-  try{
-    if(await User.authenticate(username, password)){
-      
+  const { username, password } = req.body;  
+
+  // we can go for either a try catch block with async 
+  // let loginUserId;
+  // try{
+  //   if(await (loginUserId = User.authenticate(username, password))){
+  //     console.log(loginUserId);
+  //     throw new UserError(
+  //       "Server Failed: User doesn't exist",
+  //       "/login",
+  //       200
+  //     );
+  //   }
+  //   console.log(loginUserId);
+  //   // res.session.username = username;
+  //   // res.session.userId = results
+
+  //   res.redirect('/login');
+  // } catch(err) {
+  //   if(err instanceof UserError){
+  //     console.log('errrrr');
+  //     errorPrint(err.getMessage);
+  //     res.status(err.getStatus());
+  //     res.redirect('/login');
+  //   } else {
+  //     next(err);
+  //   }
+  // }
+
+  // then promise method
+  User.authenticate(username, password)
+  .then((loggedUserId) => {
+    if(loggedUserId > 0){
+      successPrint(`User ${username} was able to log in.`);
+      req.session.username = username;
+      req.session.userId = loggedUserId;
+      res.redirect('/');
+    } else {
+      throw new UserError(
+        "Invalid username or password",
+        "/login",
+        200
+      )
     }
-  } catch(err) {
+  })
+  .catch((err) => {
     if(err instanceof UserError){
       errorPrint(err.getMessage);
-      res.status(err.getStatus());
-      res.redirect('/login');
+      req.flash('error', err.getMessage());
+      res.status(err.getStatus);
+      res.redirect("/login");
     } else {
       next(err);
     }
-  }
-
-
+  })
 });
 
 
